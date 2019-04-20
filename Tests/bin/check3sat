@@ -1,0 +1,36 @@
+#!/bin/bash
+#
+
+
+export tmp=`mktemp tmpXXXXX`
+
+cat > $tmp
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+$DIR/checksat < $tmp > /dev/null
+
+export RESULT=$?
+
+if [[ $RESULT != 0 ]] ; then
+	rm $tmp
+	exit $RESULT
+	fi
+
+export k=`$DIR/checksat < $tmp`
+
+rm $tmp
+
+if [[ "$k" -gt "3" ]] ; then
+	echo "Error: clause longer than 3"
+	exit 1
+	fi
+
+echo $k
+
+
+exit 0
+
+
+
+

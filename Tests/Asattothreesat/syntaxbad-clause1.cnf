@@ -1,0 +1,3 @@
+c Not ok because 1 clause declared and 0 given
+p cnf 1 1
+

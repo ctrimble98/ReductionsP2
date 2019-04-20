@@ -1,0 +1,8 @@
+c ok because there are no clauses at all
+
+
+c I am allowing blank lines in the preamble
+
+
+
+p cnf 1 0 

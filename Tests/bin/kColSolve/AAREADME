@@ -1,0 +1,44 @@
+Ian Gent 5 April 2019
+
+./kColSolve
+
+based on Savile Row by Peter Nightingale (see subdirectory)
+
+This directory contains MAC and LINUX versions of a k colouring solver. 
+No Windows version is available but it should work in the Ubuntu subsystem (untested).
+
+===========
+
+NOTE ON FORMAT
+
+The DIMACS COL format does not include a way to specify the number of colours required.  
+To workaround this, I have added to the format 
+
+After the "p edge" line and before the first line containing an edge, there should be:
+     a line starting "colours" followed by a space and then an integer 
+     where "colours" must be the first 7 characters of the line
+
+E.g. the example uncolourable file contains the following two consecutive lines
+
+p edge 11 20
+colours 3
+
+Note that because this line starts with a c it will be regarded as a comment by other colouring 
+programs which use the DIMACS format 
+===========
+
+
+usage example: 
+
+./kColSolve  < colourable.col
+
+this will print to stdout a colouring if any is found, plus some search statistics.
+
+Both the preprocessor and the solver (Savile Row and Minion) are limited to 60s each.
+
+Note that the linux/mac version of savile row must be kept in the same directory as kColSolve.
+
+
+
+
+

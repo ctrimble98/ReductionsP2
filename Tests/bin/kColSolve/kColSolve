@@ -1,0 +1,31 @@
+#! /bin/bash
+#! /bin/bash
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+## mac or linux?
+
+srdir=savilerow-1.7.0RC-linux
+os=`uname`
+if [ $os = "Darwin" ]
+then
+    srdir=savilerow-1.7.0RC-mac
+fi
+
+
+file=`mktemp ".kcoltmp.XXXXX"`
+
+
+awk '
+    /^p edge/{print "letting vertices =", $3, "\nletting edge_count =", $4}
+    /^colours /{print "letting colours =", $2, "\nletting edges= [\n"}
+    /^e /{print "[", $2, "," , $3 "],"}
+' > $file.param
+echo "]" >> $file.param
+
+$DIR/$srdir/savilerow -O1 $DIR/kCol.eprime $file.param -run-solver -solutions-to-stdout -out-info $file.info -out-minion $file.minion -timelimit 60000 -solver-options "-cpulimit 60" | grep colouring
+
+cat $file.info
+
+rm $file $file.param $file.minion $file.infor $file.info
+

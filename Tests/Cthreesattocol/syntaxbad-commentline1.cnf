@@ -1,0 +1,6 @@
+c Not ok because a line in preamble must start with c
+
+ c first character is not c
+
+
+p cnf 1 0 

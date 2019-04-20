@@ -1,0 +1,32 @@
+#!/bin/bash
+#
+
+export tmp=`mktemp tmpXXXXX`
+
+cat > $tmp
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+$DIR/checkcol < $tmp > /dev/null
+
+export RESULT=$?
+
+if [[ $RESULT != 0 ]] ; then
+	rm $tmp
+	exit $RESULT
+	fi
+
+export k=`$DIR/checkcol < $tmp`
+
+rm $tmp
+
+if [[ "$k" != "3" ]] ; then
+	echo "Error: number of colours should be 3"
+	exit 1
+	fi
+
+echo $k
+
+
+exit 0
+
