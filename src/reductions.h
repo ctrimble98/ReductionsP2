@@ -9,8 +9,36 @@
 #include <stdexcept>
 #include <vector>
 
+class SAT {
+
+private:
+    int variables;
+    std::vector<std::vector<int>> clauses;
+public:
+    int getVariables() {
+        return variables;
+    }
+
+    void setVariables(int variables) {
+        this->variables = variables;
+    }
+
+    std::vector<std::vector<int>> getClauses() {
+        return clauses;
+    }
+
+    void setClauses(std::vector<std::vector<int>> clauses) {
+        this->clauses = clauses;
+    }
+};
+
+//Miscelaneous function definitions
 void returnProgram(int returnVal);
 
-void parseCNF();
+//Parsing function definitions
+void parseCNF(SAT sat);
+
+//Reduction function definitions
+void sattothreesat(SAT sat);
 
 #endif

@@ -1,6 +1,6 @@
 #include "reductions.h"
 
-void parseCNF() {
+void parseCNF(SAT sat) {
 
     // istream* reader = cin;
 
@@ -27,6 +27,7 @@ void parseCNF() {
                 case 'p':
 
                     iter = 0;
+                    iss.clear();
                     iss << headerLine;
                     while (std::getline(iss, token, delim)) {
 
@@ -83,32 +84,77 @@ void parseCNF() {
     }
     std::cout << clauses << " " << variables << std::endl;
 
+    std::string tempString;
     std::vector<std::vector<int>> clauseArray(clauses);
-    std::vector<int> currentClause(10);
-    int i, var;
+    std::vector<int> currentClause;
+    int var, i;
     i = 0;
-    while (std::getline(std::cin, token, delim)) {
+    // j = 0;
+    while (std::getline(std::cin, tempString)) {
 
-        try {
+        std::cout << "Line: " << tempString << std::endl;
 
-            var = std::stoi(token);
-            if (var > variables || (var*-1) > variables) {
+        iss.clear();
+        iss << tempString;
+        std::cout << "Token: " << token << std::endl;
+
+        while (std::getline(iss, token, ' ')) {
+
+            std::cout << "Clause tok: " << token << std::endl;
+
+            try {
+                // std::cout << "i=" << i << "j=" << j << std::endl;
+                var = std::stoi(token);
+                if (var > variables || (var*-1) > variables) {
+                    std::cout << "var to large: " << var << std::endl;
+                    returnProgram(1);
+                }
+                if (var == 0) {
+
+
+                    if (i >= clauses) {
+                        returnProgram(1);
+                    }
+                    clauseArray[i] = currentClause;
+                    currentClause.clear();
+                    i++;
+                    // j = 0;
+                }
+                else {
+
+                    // if (j < DEF_MAX_CLAUSE) {
+                    //     currentClause[j] = var;
+                    // } else {
+
+                        currentClause.push_back(var);
+                    // }
+                    // j++;
+                }
+                std::cout << "Clause var: " << var << ":" << currentClause[0] << currentClause[1] << currentClause[2] << std::endl;
+            } catch (std::invalid_argument) {
+
+                std::cout << "Parsing clauses failed on: " << token << std::endl;
                 returnProgram(1);
             }
-            currentClause.at(i) = var;
-
-            std::cout << "Clause var: " << var << std::endl;
-            i++;
-        } catch (std::invalid_argument) {
-
-            std::cout << "Parsing clauses failed on: " << token << std::endl;
-            returnProgram(1);
         }
     }
 
-    // char c;
-    // while (std::cin >> c) {
-    //
-    //     std::cout << c;
-    // }
+    std::cout << "CC" << currentClause[0] << std::endl;
+    if (currentClause.size() > 0) {
+        if (i >= clauses) {
+            returnProgram(1);
+        }
+        clauseArray[i] = currentClause;
+    }
+
+    for (i = 0; i < clauseArray.size(); i++) {
+        for (int j = 0; j < clauseArray[i].size(); j++) {
+
+            std::cout << clauseArray[i][j] << ", ";
+        }
+        std::cout << std::endl;
+    }
+
+    sat.setVariables(variables);
+    sat.setClauses(clauseArray);
 }
