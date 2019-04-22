@@ -1,6 +1,6 @@
 #include "reductions.h"
 
-void parseCNF(SAT sat) {
+SAT parseCNF() {
 
     // istream* reader = cin;
 
@@ -147,14 +147,12 @@ void parseCNF(SAT sat) {
         clauseArray[i] = currentClause;
     }
 
-    for (i = 0; i < clauseArray.size(); i++) {
-        for (int j = 0; j < clauseArray[i].size(); j++) {
-
-            std::cout << clauseArray[i][j] << ", ";
-        }
-        std::cout << std::endl;
-    }
+    SAT sat;
 
     sat.setVariables(variables);
     sat.setClauses(clauseArray);
+
+    printSAT(sat);
+
+    return sat;
 }

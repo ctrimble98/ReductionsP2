@@ -36,7 +36,10 @@ public:
 void returnProgram(int returnVal);
 
 //Parsing function definitions
-void parseCNF(SAT sat);
+SAT parseCNF();
+
+//Printing function definitions
+void printSAT(SAT sat);
 
 //Reduction function definitions
 void sattothreesat(SAT sat);
