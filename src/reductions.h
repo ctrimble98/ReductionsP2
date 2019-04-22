@@ -8,6 +8,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <vector>
+#include <set>
 
 class SAT {
 
@@ -32,16 +33,56 @@ public:
     }
 };
 
+class COL {
+
+private:
+    int nodes;
+    int colours;
+    std::set<std::pair<int, int>> edgesSet;
+public:
+    int getNodes() {
+        return nodes;
+    }
+
+    void setNodes(int nodes) {
+
+        this->nodes = nodes;
+    }
+
+    int getColours() {
+
+        return colours;
+    }
+
+    void setColours(int colours) {
+
+        this->colours = colours;
+    }
+
+    std::set<std::pair<int, int>> getEdges() {
+
+        return edgesSet;
+    }
+
+    void setEdges(std::set<std::pair<int, int>> edgesSet) {
+
+        this->edgesSet = edgesSet;
+    }
+
+};
+
 //Miscelaneous function definitions
 void returnProgram(int returnVal);
 
 //Parsing function definitions
 SAT parseCNF();
+COL parseCOL();
 
 //Printing function definitions
 void printSAT(SAT sat);
+void printCOL(COL col);
 
 //Reduction function definitions
 void sattothreesat(SAT sat);
-
+void coltosat(COL col);
 #endif

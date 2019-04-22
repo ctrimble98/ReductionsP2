@@ -1,10 +1,13 @@
 CC	=	g++
 FLAGS	=	-g	-O2	-Wall	-Wextra
 
-a:	sattothreesat.cpp	parser.cpp	printer.cpp	reductions.h
-	${CC}	${FLAGS}	sattothreesat.cpp	parser.cpp	printer.cpp	-o	sattothreesat
+sattothreesat:	sattothreesat.cpp	parser.cpp	printer.cpp	reductions.cpp	reductions.h
+	${CC}	${FLAGS}	sattothreesat.cpp	reductions.cpp	parser.cpp	printer.cpp	-o	sattothreesat
 
-all:	a
+coltosat:	coltosat.cpp	parser.cpp	printer.cpp	reductions.cpp	reductions.h
+	${CC}	${FLAGS}	coltosat.cpp	reductions.cpp	parser.cpp	printer.cpp	-o	coltosat
+
+all:	sattothreesat	coltosat
 
 clean:
-	rm	-f	sattothreesat
+	rm	-f	sattothreesat	coltosat

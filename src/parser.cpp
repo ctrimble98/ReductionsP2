@@ -156,3 +156,127 @@ SAT parseCNF() {
 
     return sat;
 }
+
+COL parseCOL() {
+
+
+    int targetType = 0;
+    int iter, nodes, edgesNo, colours;
+    std::set<std::pair<int, int>> edgesSet;
+    std::string line, token, lineType;
+    std::stringstream iss;
+
+    int start, dest, edgesFound;
+    start = 0;
+    dest = 0;
+    edgesFound = 0;
+
+    while(std::getline(std::cin, line)) {
+
+        iss.clear();
+        iss << line;
+
+        while (std::getline(iss, token, ' ')) {
+            try {
+
+                if (token == "c") {
+                    break;
+                } else {
+
+                    switch (targetType) {
+                        case 0:
+                            switch (iter) {
+
+                                case 0:
+                                    if (token != "p") {
+                                        returnProgram(1);
+                                    }
+                                    break;
+                                case 1:
+                                    if (token != "edge") {
+                                        returnProgram(1);
+                                    }
+                                    break;
+                                case 2:
+                                    nodes = stoi(token);
+                                    break;
+                                case 3:
+                                    edgesNo = stoi(token);
+                                    targetType++;
+                                    iter = 0;
+                                    break;
+                                default:
+                                    returnProgram(1);
+                            }
+                            break;
+                        case 1:
+                            switch (iter) {
+
+                                case 0:
+                                    if (token != "colours") {
+                                        returnProgram(1);
+                                    }
+                                    break;
+                                case 1:
+                                    colours = stoi(token);
+                                    targetType++;
+                                    iter = 0;
+                                    break;
+                                default:
+                                    returnProgram(1);
+                            }
+                            break;
+                        case 2:
+                            switch (iter) {
+
+                                case 0:
+                                    if (token != "e") {
+                                        returnProgram(1);
+                                    }
+                                    break;
+                                case 1:
+                                    start = stoi(token);
+                                    if (start < 0 || start > nodes) {
+                                        returnProgram(1);
+                                    }
+                                    break;
+                                case 2:
+
+                                    dest = stoi(token);
+                                    bool result;
+                                    if (start < dest) {
+                                        bool result = edgesSet.insert(std::pair<int, int>(start, dest)).second;
+                                    } else {
+                                        bool result = edgesSet.insert(std::pair<int, int>(dest, start)).second;
+                                    }
+
+                                    if (!result || edgesFound > edgesNo) {
+                                        returnProgram(1);
+                                    }
+                                    edgesFound++;
+                                    iter = 0;
+                                    break;
+                                default:
+                                    returnProgram(1);
+                            }
+                            break;
+                    }
+                }
+                iter++;
+            } catch (std::invalid_argument) {
+
+                returnProgram(1);
+            }
+        }
+    }
+
+    //TODO check edge number
+
+    COL col;
+
+    col.setNodes(nodes);
+    col.setColours(colours);
+    col.setEdges(edgesSet);
+
+    return col;
+}

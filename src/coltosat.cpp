@@ -2,10 +2,10 @@
 
 int main(int argc, char const *argv[]) {
 
-    SAT sat = parseCNF();
+    COL col = parseCOL();
 
-    printSAT(sat);
-    sattothreesat(sat);
+    printCOL(col);
+    coltosat(col);
 
     return 0;
 }
