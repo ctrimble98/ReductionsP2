@@ -1,0 +1,8 @@
+c Unsolvable SAT instance
+c Not a 3 SAT instance
+p cnf 4 4 
+1 0
+-1 2 0
+-1 -2 3 0
+-1 -2 -3 4 0
+-1 -2 -3 -4 0

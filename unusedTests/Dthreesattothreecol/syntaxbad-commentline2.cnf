@@ -1,0 +1,7 @@
+c Not ok because all comment lines must be in preamble
+c I am allowing blank lines in the preamble
+
+
+p cnf 1 0 
+
+c no comments allowed after preamble

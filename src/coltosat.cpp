@@ -4,7 +4,7 @@ int main(int argc, char const *argv[]) {
 
     COL col = parseCOL();
 
-    printCOL(col);
+    //printCOL(col);
     SAT sat = coltosat(col);
 
     printSAT(sat);

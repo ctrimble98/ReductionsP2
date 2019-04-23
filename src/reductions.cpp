@@ -6,20 +6,21 @@ SAT sattothreesat(SAT sat) {
     std::vector<std::vector<int>> clauseArray = sat.getClauses();
     int lastVariable = sat.getVariables();
 
-    std::cout << clauseArray.size() << " " << clauseArray[5].size() << std::endl;
+    // std::cout << clauseArray.size() << " " << clauseArray[5].size() << std::endl;
     for (int i = 0; i < clauseArray.size(); i++) {
 
         if (clauseArray[i].size() > 3) {
 
             lastVariable++;
-            std::vector<int> newClause(clauseArray[i].size() - 1);
+            std::vector<int> newClause;
+            newClause.reserve(clauseArray[i].size() - 1);
             //FIll newClause with old clause minus first 2
 
-            newClause[0] = lastVariable;
+            newClause.push_back((-1)*lastVariable);
 
             for (int j = 1; j < clauseArray[i].size() - 1; j++) {
 
-                newClause[j] = clauseArray[i][j + 1];
+                newClause.push_back(clauseArray[i][j + 1]);
             }
 
             clauseArray.push_back(newClause);
@@ -115,6 +116,14 @@ COL threesattocol(SAT sat) {
     COL col;
 
     std::vector<std::vector<int>> clauseArray = sat.getClauses();
+
+    for (std::vector<int> clause: clauseArray) {
+
+        if (clause.size() > 3) {
+            returnProgram(1);
+        }
+    }
+
     int variables = sat.getVariables();
 
     variables = variables <= 3 ? 4: variables;
@@ -134,18 +143,23 @@ COL threesattocol(SAT sat) {
         currentEdge++;
     }
 
+    // for (int i = 0; i < variables; i++) {
+    //     for (int j = i + 1; j < variables; j++) {
+    //
+    //         // if (i != j) {
+    //             edgesSet.insert(std::pair<int, int>(i + 2*variables + 1, j + 2*variables + 1));
+    //             currentEdge++;
+    //         // }
+    //     }
+    // }
+
     for (int i = 0; i < variables; i++) {
         for (int j = 0; j < variables; j++) {
 
-            if (i != j) {
+            if (j > i) {
                 edgesSet.insert(std::pair<int, int>(i + 2*variables + 1, j + 2*variables + 1));
                 currentEdge++;
             }
-        }
-    }
-
-    for (int i = 0; i < variables; i++) {
-        for (int j = 0; j < variables; j++) {
 
             if (i != j) {
                 edgesSet.insert(std::pair<int, int>(i + 2*variables + 1, j + 1));
@@ -157,6 +171,7 @@ COL threesattocol(SAT sat) {
 
     for (int i = 0; i < clauseArray.size(); i++) {
         for (int j = 0; j < variables; j++) {
+
             if (std::find(clauseArray[i].begin(), clauseArray[i].end(), j) == clauseArray[i].end()) {
                 edgesSet.insert(std::pair<int, int>(i + 3*variables + 1, j + 1));
                 currentEdge++;
@@ -168,7 +183,7 @@ COL threesattocol(SAT sat) {
         }
     }
 
-    std::cout << currentEdge << '\n';
+    // std::cout << currentEdge << '\n';
 
     col.setEdges(edgesSet);
     col.setNodes(nodes);
@@ -194,6 +209,6 @@ unsigned long binCoeff(int n, int r) {
 
 void returnProgram(int returnVal) {
 
-    std::cout << "Exit with value: " << returnVal << std::endl;
+    std::cerr << "Exit with value: " << returnVal << std::endl;
     exit(returnVal);
 }

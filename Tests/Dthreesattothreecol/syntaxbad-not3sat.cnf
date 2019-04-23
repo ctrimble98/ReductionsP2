@@ -1,3 +1,0 @@
-c Not 3-SAT so should not be processed if it is meant to be
-p cnf 4 1 
-1 2 3 4 0

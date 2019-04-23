@@ -2,10 +2,6 @@
 
 SAT parseCNF() {
 
-    // istream* reader = cin;
-
-    //Read line until start with p -> read chars no whitespace or \n until 0 for each clause
-
     std::string headerLine, token;
     bool isPreamble = true;
     bool comments = true;
@@ -13,6 +9,8 @@ SAT parseCNF() {
     char delim = ' ';
 
     int variables, clauses, iter;
+    variables = -1;
+    clauses = -1;
 
     std::stringstream iss;
 
@@ -20,7 +18,6 @@ SAT parseCNF() {
 
         if (headerLine.length() > 1)  {
             lineType = headerLine[0];
-            std::cout << lineType << std::endl;
             switch (lineType) {
                 case 'c':
                     break;
@@ -30,8 +27,6 @@ SAT parseCNF() {
                     iss.clear();
                     iss << headerLine;
                     while (std::getline(iss, token, delim)) {
-
-                        std::cout << "Problem token: |" << token << "|" << std::endl;
 
                         switch (iter) {
 
@@ -53,8 +48,6 @@ SAT parseCNF() {
 
                                     variables = std::stoi(token);
                                 } catch (std::invalid_argument) {
-
-                                    std::cout << "variables failed: " << token << std::endl;
                                     returnProgram(1);
                                 }
                                 break;
@@ -64,8 +57,6 @@ SAT parseCNF() {
 
                                     clauses = std::stoi(token);
                                 } catch (std::invalid_argument) {
-
-                                    std::cout << "clauses failed: " << token << std::endl;
                                     returnProgram(1);
                                 }
                                 break;
@@ -82,31 +73,31 @@ SAT parseCNF() {
             }
         }
     }
-    std::cout << clauses << " " << variables << std::endl;
+
+    if (variables == -1 || clauses == -1) {
+        returnProgram(1);
+    }
 
     std::string tempString;
-    std::vector<std::vector<int>> clauseArray(clauses);
+    std::set<int> variablesSeen;
+    std::vector<std::vector<int>> clauseArray;
+    if (clauses != 0) {
+        clauseArray.reserve(clauses);
+    }
     std::vector<int> currentClause;
     int var, i;
     i = 0;
     // j = 0;
     while (std::getline(std::cin, tempString)) {
 
-        std::cout << "Line: " << tempString << std::endl;
-
         iss.clear();
         iss << tempString;
-        std::cout << "Token: " << token << std::endl;
 
         while (std::getline(iss, token, ' ')) {
 
-            std::cout << "Clause tok: " << token << std::endl;
-
             try {
-                // std::cout << "i=" << i << "j=" << j << std::endl;
                 var = std::stoi(token);
                 if (var > variables || (var*-1) > variables) {
-                    std::cout << "var to large: " << var << std::endl;
                     returnProgram(1);
                 }
                 if (var == 0) {
@@ -115,44 +106,39 @@ SAT parseCNF() {
                     if (i >= clauses) {
                         returnProgram(1);
                     }
-                    clauseArray[i] = currentClause;
+                    clauseArray.push_back(currentClause);
                     currentClause.clear();
                     i++;
-                    // j = 0;
                 }
                 else {
 
-                    // if (j < DEF_MAX_CLAUSE) {
-                    //     currentClause[j] = var;
-                    // } else {
-
-                        currentClause.push_back(var);
-                    // }
-                    // j++;
+                    variablesSeen.insert(std::abs(var));
+                    currentClause.push_back(var);
                 }
-                std::cout << "Clause var: " << var << ":" << currentClause[0] << currentClause[1] << currentClause[2] << std::endl;
             } catch (std::invalid_argument) {
 
-                std::cout << "Parsing clauses failed on: " << token << std::endl;
                 returnProgram(1);
             }
         }
     }
 
-    std::cout << "CC" << currentClause[0] << std::endl;
     if (currentClause.size() > 0) {
         if (i >= clauses) {
             returnProgram(1);
         }
         clauseArray[i] = currentClause;
+        i++;
+    }
+
+    if (i < clauses) {
+        returnProgram(1);
     }
 
     SAT sat;
 
-    sat.setVariables(variables);
-    sat.setClauses(clauseArray);
+    sat.setVariables(variablesSeen.size());
 
-    printSAT(sat);
+    sat.setClauses(clauseArray);
 
     return sat;
 }
@@ -273,8 +259,6 @@ COL parseCOL() {
             }
         }
     }
-
-    //TODO check edge number
 
     if (edgesFound != edgesNo) {
         returnProgram(1);
