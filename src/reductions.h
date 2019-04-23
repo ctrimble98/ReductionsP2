@@ -9,6 +9,7 @@
 #include <stdexcept>
 #include <vector>
 #include <set>
+#include <algorithm>
 
 class SAT {
 
@@ -72,6 +73,7 @@ public:
 };
 
 //Miscelaneous function definitions
+unsigned long binCoeff(int n, int r);
 void returnProgram(int returnVal);
 
 //Parsing function definitions
@@ -83,6 +85,7 @@ void printSAT(SAT sat);
 void printCOL(COL col);
 
 //Reduction function definitions
-void sattothreesat(SAT sat);
-void coltosat(COL col);
+SAT sattothreesat(SAT sat);
+SAT coltosat(COL col);
+COL threesattocol(SAT sat);
 #endif

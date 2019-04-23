@@ -4,11 +4,9 @@ int main(int argc, char const *argv[]) {
 
     SAT sat = parseCNF();
 
-    printSAT(sat);
-    
-    sat = sattothreesat(sat);
+    COL col = threesattocol(sat);
 
-    printSAT(sat);
+    printCOL(col);
 
     return 0;
 }

@@ -159,13 +159,12 @@ SAT parseCNF() {
 
 COL parseCOL() {
 
-
     int targetType = 0;
     int iter, nodes, edgesNo, colours;
     std::set<std::pair<int, int>> edgesSet;
     std::string line, token, lineType;
     std::stringstream iss;
-
+    bool comment;
     int start, dest, edgesFound;
     start = 0;
     dest = 0;
@@ -173,104 +172,113 @@ COL parseCOL() {
 
     while(std::getline(std::cin, line)) {
 
+        iter = 0;
         iss.clear();
         iss << line;
 
+        comment = false;
         while (std::getline(iss, token, ' ')) {
-            try {
 
-                if (token == "c") {
-                    break;
-                } else {
+            if (!comment) {
+                try {
 
-                    switch (targetType) {
-                        case 0:
-                            switch (iter) {
+                    if (token == "c") {
+                        comment = true;
+                    } else {
 
-                                case 0:
-                                    if (token != "p") {
+                        switch (targetType) {
+                            case 0:
+                                switch (iter) {
+
+                                    case 0:
+                                        if (token != "p") {
+                                            returnProgram(1);
+                                        }
+                                        break;
+                                    case 1:
+                                        if (token != "edge") {
+                                            returnProgram(1);
+                                        }
+                                        break;
+                                    case 2:
+                                        nodes = stoi(token);
+                                        break;
+                                    case 3:
+                                        edgesNo = stoi(token);
+                                        targetType++;
+                                        iter = 0;
+                                        break;
+                                    default:
                                         returnProgram(1);
-                                    }
-                                    break;
-                                case 1:
-                                    if (token != "edge") {
-                                        returnProgram(1);
-                                    }
-                                    break;
-                                case 2:
-                                    nodes = stoi(token);
-                                    break;
-                                case 3:
-                                    edgesNo = stoi(token);
-                                    targetType++;
-                                    iter = 0;
-                                    break;
-                                default:
-                                    returnProgram(1);
-                            }
-                            break;
-                        case 1:
-                            switch (iter) {
+                                }
+                                break;
+                            case 1:
+                                switch (iter) {
 
-                                case 0:
-                                    if (token != "colours") {
+                                    case 0:
+                                        if (token != "colours") {
+                                            returnProgram(1);
+                                        }
+                                        break;
+                                    case 1:
+                                        colours = stoi(token);
+                                        targetType++;
+                                        iter = 0;
+                                        break;
+                                    default:
                                         returnProgram(1);
-                                    }
-                                    break;
-                                case 1:
-                                    colours = stoi(token);
-                                    targetType++;
-                                    iter = 0;
-                                    break;
-                                default:
-                                    returnProgram(1);
-                            }
-                            break;
-                        case 2:
-                            switch (iter) {
+                                }
+                                break;
+                            case 2:
+                                switch (iter) {
 
-                                case 0:
-                                    if (token != "e") {
-                                        returnProgram(1);
-                                    }
-                                    break;
-                                case 1:
-                                    start = stoi(token);
-                                    if (start < 0 || start > nodes) {
-                                        returnProgram(1);
-                                    }
-                                    break;
-                                case 2:
+                                    case 0:
+                                        if (token != "e") {
+                                            returnProgram(1);
+                                        }
+                                        break;
+                                    case 1:
+                                        start = stoi(token);
+                                        if (start < 0 || start > nodes) {
+                                            returnProgram(1);
+                                        }
+                                        break;
+                                    case 2:
 
-                                    dest = stoi(token);
-                                    bool result;
-                                    if (start < dest) {
-                                        bool result = edgesSet.insert(std::pair<int, int>(start, dest)).second;
-                                    } else {
-                                        bool result = edgesSet.insert(std::pair<int, int>(dest, start)).second;
-                                    }
+                                        dest = stoi(token);
+                                        bool result;
+                                        if (start < dest) {
+                                            result = edgesSet.insert(std::pair<int, int>(start, dest)).second;
+                                        } else {
+                                            result = edgesSet.insert(std::pair<int, int>(dest, start)).second;
+                                        }
+                                        edgesFound++;
 
-                                    if (!result || edgesFound > edgesNo) {
+                                        if (!result || edgesFound > edgesNo) {
+                                            returnProgram(1);
+                                        }
+                                        iter = 0;
+                                        break;
+                                    default:
                                         returnProgram(1);
-                                    }
-                                    edgesFound++;
-                                    iter = 0;
-                                    break;
-                                default:
-                                    returnProgram(1);
-                            }
-                            break;
+                                }
+                                break;
+                        }
                     }
-                }
-                iter++;
-            } catch (std::invalid_argument) {
+                    iter++;
+                } catch (std::invalid_argument) {
 
-                returnProgram(1);
+                    returnProgram(1);
+                }
             }
         }
     }
 
     //TODO check edge number
+
+    if (edgesFound != edgesNo) {
+        returnProgram(1);
+    }
 
     COL col;
 

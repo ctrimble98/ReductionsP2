@@ -7,7 +7,11 @@ sattothreesat:	sattothreesat.cpp	parser.cpp	printer.cpp	reductions.cpp	reduction
 coltosat:	coltosat.cpp	parser.cpp	printer.cpp	reductions.cpp	reductions.h
 	${CC}	${FLAGS}	coltosat.cpp	reductions.cpp	parser.cpp	printer.cpp	-o	coltosat
 
-all:	sattothreesat	coltosat
+threesattocol:	threesattocol.cpp	parser.cpp	printer.cpp	reductions.cpp	reductions.h
+	${CC}	${FLAGS}	threesattocol.cpp	reductions.cpp	parser.cpp	printer.cpp	-o	threesattocol
+
+
+all:	sattothreesat	coltosat	threesattocol
 
 clean:
-	rm	-f	sattothreesat	coltosat
+	rm	-f	sattothreesat	coltosat	threesattocol
