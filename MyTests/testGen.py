@@ -23,3 +23,10 @@ for i in range(1, 51):
             if (cand_edge not in currentEdges):
                 currentEdges.add(cand_edge)
                 f.write("e " + str(cand_edge[0]) + " " + str(cand_edge[1]) + "\n")
+
+    nodes = 5*i
+    f = open("growingBoth/" + str(format(nodes, '04d')) + "-nodes-and-edges.col", "w")
+    f.write("p edge " + str(nodes) + " " + str(nodes) + "\n")
+    f.write("colours 3\n")
+    for j in range(0, nodes):
+        f.write("e " + str(j) + " " + str((j+1) % nodes) + "\n")

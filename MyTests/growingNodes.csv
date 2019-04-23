@@ -1,51 +1,51 @@
-Start Nodes, Nodes, Edges, Colours
-./growingNodes/0005-nodes.col,68, 1182, 16
-./growingNodes/0010-nodes.col,133, 4692, 31
-./growingNodes/0015-nodes.col,198, 10527, 46
-./growingNodes/0020-nodes.col,263, 18687, 61
-./growingNodes/0025-nodes.col,328, 29172, 76
-./growingNodes/0030-nodes.col,393, 41982, 91
-./growingNodes/0035-nodes.col,458, 57117, 106
-./growingNodes/0040-nodes.col,523, 74577, 121
-./growingNodes/0045-nodes.col,588, 94362, 136
-./growingNodes/0050-nodes.col,653, 116472, 151
-./growingNodes/0055-nodes.col,718, 140907, 166
-./growingNodes/0060-nodes.col,783, 167667, 181
-./growingNodes/0065-nodes.col,848, 196752, 196
-./growingNodes/0070-nodes.col,913, 228162, 211
-./growingNodes/0075-nodes.col,978, 261897, 226
-./growingNodes/0080-nodes.col,1043, 297957, 241
-./growingNodes/0085-nodes.col,1108, 336342, 256
-./growingNodes/0090-nodes.col,1173, 377052, 271
-./growingNodes/0095-nodes.col,1238, 420087, 286
-./growingNodes/0100-nodes.col,1303, 465447, 301
-./growingNodes/0105-nodes.col,1368, 513132, 316
-./growingNodes/0110-nodes.col,1433, 563142, 331
-./growingNodes/0115-nodes.col,1498, 615477, 346
-./growingNodes/0120-nodes.col,1563, 670137, 361
-./growingNodes/0125-nodes.col,1628, 727122, 376
-./growingNodes/0130-nodes.col,1693, 786432, 391
-./growingNodes/0135-nodes.col,1758, 848067, 406
-./growingNodes/0140-nodes.col,1823, 912027, 421
-./growingNodes/0145-nodes.col,1888, 978312, 436
-./growingNodes/0150-nodes.col,1953, 1046922, 451
-./growingNodes/0155-nodes.col,2018, 1117857, 466
-./growingNodes/0160-nodes.col,2083, 1191117, 481
-./growingNodes/0165-nodes.col,2148, 1266702, 496
-./growingNodes/0170-nodes.col,2213, 1344612, 511
-./growingNodes/0175-nodes.col,2278, 1424847, 526
-./growingNodes/0180-nodes.col,2343, 1507407, 541
-./growingNodes/0185-nodes.col,2408, 1592292, 556
-./growingNodes/0190-nodes.col,2473, 1679502, 571
-./growingNodes/0195-nodes.col,2538, 1769037, 586
-./growingNodes/0200-nodes.col,2603, 1860897, 601
-./growingNodes/0205-nodes.col,2668, 1955082, 616
-./growingNodes/0210-nodes.col,2733, 2051592, 631
-./growingNodes/0215-nodes.col,2798, 2150427, 646
-./growingNodes/0220-nodes.col,2863, 2251587, 661
-./growingNodes/0225-nodes.col,2928, 2355072, 676
-./growingNodes/0230-nodes.col,2993, 2460882, 691
-./growingNodes/0235-nodes.col,3058, 2569017, 706
-./growingNodes/0240-nodes.col,3123, 2679477, 721
-./growingNodes/0245-nodes.col,3188, 2792262, 736
-./growingNodes/0250-nodes.col,3253, 2907372, 751
+Start Nodes, Start Edges, Start Colours, Nodes, Edges, Colours
+5, 1, 3, 68, 1182, 16
+10, 1, 3, 133, 4692, 31
+15, 1, 3, 198, 10527, 46
+20, 1, 3, 263, 18687, 61
+25, 1, 3, 328, 29172, 76
+30, 1, 3, 393, 41982, 91
+35, 1, 3, 458, 57117, 106
+40, 1, 3, 523, 74577, 121
+45, 1, 3, 588, 94362, 136
+50, 1, 3, 653, 116472, 151
+55, 1, 3, 718, 140907, 166
+60, 1, 3, 783, 167667, 181
+65, 1, 3, 848, 196752, 196
+70, 1, 3, 913, 228162, 211
+75, 1, 3, 978, 261897, 226
+80, 1, 3, 1043, 297957, 241
+85, 1, 3, 1108, 336342, 256
+90, 1, 3, 1173, 377052, 271
+95, 1, 3, 1238, 420087, 286
+100, 1, 3, 1303, 465447, 301
+105, 1, 3, 1368, 513132, 316
+110, 1, 3, 1433, 563142, 331
+115, 1, 3, 1498, 615477, 346
+120, 1, 3, 1563, 670137, 361
+125, 1, 3, 1628, 727122, 376
+130, 1, 3, 1693, 786432, 391
+135, 1, 3, 1758, 848067, 406
+140, 1, 3, 1823, 912027, 421
+145, 1, 3, 1888, 978312, 436
+150, 1, 3, 1953, 1046922, 451
+155, 1, 3, 2018, 1117857, 466
+160, 1, 3, 2083, 1191117, 481
+165, 1, 3, 2148, 1266702, 496
+170, 1, 3, 2213, 1344612, 511
+175, 1, 3, 2278, 1424847, 526
+180, 1, 3, 2343, 1507407, 541
+185, 1, 3, 2408, 1592292, 556
+190, 1, 3, 2473, 1679502, 571
+195, 1, 3, 2538, 1769037, 586
+200, 1, 3, 2603, 1860897, 601
+205, 1, 3, 2668, 1955082, 616
+210, 1, 3, 2733, 2051592, 631
+215, 1, 3, 2798, 2150427, 646
+220, 1, 3, 2863, 2251587, 661
+225, 1, 3, 2928, 2355072, 676
+230, 1, 3, 2993, 2460882, 691
+235, 1, 3, 3058, 2569017, 706
+240, 1, 3, 3123, 2679477, 721
+245, 1, 3, 3188, 2792262, 736
+250, 1, 3, 3253, 2907372, 751

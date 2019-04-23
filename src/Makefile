@@ -1,5 +1,5 @@
 CC	=	g++
-FLAGS	=	-g	-O2	-Wall	-Wextra
+FLAGS	=	-g	-O2	-Wextra
 
 all:	sattothreesat	coltosat	threesattocol	circularreduction
 
