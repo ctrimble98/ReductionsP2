@@ -2,11 +2,9 @@
 
 SAT sattothreesat(SAT sat) {
 
-    // int startClauses = clauseArray.size();
     std::vector<std::vector<int>> clauseArray = sat.getClauses();
     int lastVariable = sat.getVariables();
 
-    // std::cout << clauseArray.size() << " " << clauseArray[5].size() << std::endl;
     for (int i = 0; i < clauseArray.size(); i++) {
 
         if (clauseArray[i].size() > 3) {
@@ -14,7 +12,6 @@ SAT sattothreesat(SAT sat) {
             lastVariable++;
             std::vector<int> newClause;
             newClause.reserve(clauseArray[i].size() - 1);
-            //FIll newClause with old clause minus first 2
 
             newClause.push_back((-1)*lastVariable);
 
@@ -24,7 +21,6 @@ SAT sattothreesat(SAT sat) {
             }
 
             clauseArray.push_back(newClause);
-            //Edit old clause
             clauseArray[i][2] = lastVariable;
             clauseArray[i].erase(clauseArray[i].begin() + 3, clauseArray[i].end());
         }
@@ -62,13 +58,9 @@ SAT coltosat(COL col) {
 
             newClause[j] = i * colours + j + 1;
         }
-        //clauseArray[i] = newClause;
         clauseArray.push_back(newClause);
         currentClause++;
-        // newClause.clear();
     }
-
-    // std::cout << currentClause << '\n';
 
     newClause.resize(2);
     for (int i = 0; i < nodes; i++) {
@@ -77,15 +69,11 @@ SAT coltosat(COL col) {
 
                 newClause[0] = -1*(i * colours + j + 1);
                 newClause[1] = -1*(i * colours + k + 1);
-                //clauseArray[ALONo + i * colourPairNo + j] = newClause;
                 clauseArray.push_back(newClause);
                 currentClause++;
-                // newClause.clear();
             }
         }
     }
-
-    // std::cout << currentClause << '\n';
 
     int i = 0;
     for (std::pair<int, int> edge: edges) {
@@ -95,15 +83,12 @@ SAT coltosat(COL col) {
             //Subtract one from each edge to make it an index
             newClause[0] = -1*((edge.first - 1) * colours + j + 1);
             newClause[1] = -1*((edge.second - 1) * colours + j + 1);
-            //clauseArray[ALONo + AMONo + ] = newClause;
+
             clauseArray.push_back(newClause);
             currentClause++;
-            // newClause.clear();
         }
         i++;
     }
-
-    // std::cout << currentClause << '\n';
 
     sat.setVariables(variables);
     sat.setClauses(clauseArray);
@@ -132,9 +117,6 @@ COL threesattocol(SAT sat) {
 
     std::set<std::pair<int, int>> edgesSet;
 
-    //Reserve all but edges invloving Ci
-    //edgesSet.reserve(variables + (variables * variables - variables) + 2 * (variables * variables - variables));
-
     int currentEdge = 0;
 
     for (int i = 0; i < variables; i++) {
@@ -142,16 +124,6 @@ COL threesattocol(SAT sat) {
         edgesSet.insert(std::pair<int, int>(i + 1, i + variables + 1));
         currentEdge++;
     }
-
-    // for (int i = 0; i < variables; i++) {
-    //     for (int j = i + 1; j < variables; j++) {
-    //
-    //         // if (i != j) {
-    //             edgesSet.insert(std::pair<int, int>(i + 2*variables + 1, j + 2*variables + 1));
-    //             currentEdge++;
-    //         // }
-    //     }
-    // }
 
     for (int i = 0; i < variables; i++) {
         for (int j = 0; j < variables; j++) {
@@ -182,8 +154,6 @@ COL threesattocol(SAT sat) {
             }
         }
     }
-
-    // std::cout << currentEdge << '\n';
 
     col.setEdges(edgesSet);
     col.setNodes(nodes);
